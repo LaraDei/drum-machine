@@ -10,16 +10,16 @@ export default class App extends React.Component{
       bankOne: Bank[0],
       bankTwo: Bank[1],
       power: true,
-      display: String.fromCharCode(160),
+      display: 'Heater Kit',
       currentPadBank: Bank[0],
       currentPadBankId: 'Heater Kit',
-      sliderVal: 0.3
+      sliderVal: 0.3,
+      volume : Math.round(0.3 * 100)
     }
   }
     powerControl() {
       this.setState({
         power: !this.state.power,
-        display: String.fromCharCode(160)
       });
     }
     selectBank() {
@@ -27,8 +27,8 @@ export default class App extends React.Component{
         if (this.state.currentPadBankId === 'Heater Kit') {
           this.setState({
             currentPadBank: Bank[1],
-            display: 'Smooth Piano Kit',
-            currentPadBankId: 'Smooth Piano Kit'
+            display: 'Piano Kit',
+            currentPadBankId: 'Piano Kit'
           });
         } else {
           this.setState({
@@ -50,16 +50,11 @@ export default class App extends React.Component{
       if (this.state.power) {
         this.setState({
           sliderVal: e.target.value,
-          display: 'Volume: ' + Math.round(e.target.value * 100)
+          volume: Math.round(e.target.value * 100)
         });
-        setTimeout(() => this.clearDisplay(), 2000);
       }
     }
-    clearDisplay() {
-      this.setState({
-        display: String.fromCharCode(160)
-      });
-    }
+
     render() {
       const powerSlider = this.state.power
         ? {
@@ -92,31 +87,32 @@ export default class App extends React.Component{
           />
   
           <div className='controls-container'>
-          <p id='display'>{this.state.display}</p>
-          <div className='volume-slider'>
-              Volume
-              <input
-                max='1'
-                min='0'
-                onChange={(e)=>{this.adjustVolume(e)}}
-                step='0.01'
-                type='range'
-                value={this.state.sliderVal}
-              />
+            <p id='display'>{this.state.display}</p>
+            <div className='volume-slider'>
+                Volume:{' '}{this.state.volume}
+                <input
+                  max='1'
+                  min='0'
+                  onChange={(e)=>{this.adjustVolume(e)}}
+                  step='0.01'
+                  type='range'
+                  value={this.state.sliderVal}
+                />
             </div>
-            <div className='control'>
-              <p>Power</p>
-              <div className='select' onClick={()=>{this.powerControl()}}>
-                <div className='inner' style={powerSlider} />
+            <div className='controls-box'>
+              <div className='control'>
+                <p>Power</p>
+                <div className='select' onClick={()=>{this.powerControl()}}>
+                  <div className='inner' style={powerSlider} />
+                </div>
+              </div>
+              <div className='control'>
+                <p>Bank</p>
+                <div className='select' onClick={(e)=> {this.selectBank(e)}}>
+                  <div className='inner' style={bankSlider} />
+                </div>
               </div>
             </div>
-            <div className='control'>
-              <p>Bank</p>
-              <div className='select' onClick={(e)=> {this.selectBank(e)}}>
-                <div className='inner' style={bankSlider} />
-              </div>
-            </div>
-            
           </div>
         </div>
       );
