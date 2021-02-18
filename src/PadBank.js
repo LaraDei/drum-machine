@@ -6,17 +6,17 @@ export default class PadBank extends React.Component {
     render() {
       let padBank;
       if (this.props.power) {
-        padBank = this.props.currentPadBank.map((drumObj) => {  
+        padBank = this.props.bank.map((audioObj) => {  
           return (
             <Pad
-              clip={drumObj.url}
-              clipId={drumObj.id}
-              keyCode={drumObj.keyCode}
-              keyTrigger={drumObj.keyTrigger}
+              clip={audioObj.url}
+              clipId={audioObj.id}
+              keyCode={audioObj.keyCode}
+              keyTrigger={audioObj.keyTrigger}
               power={this.props.power}
               updateDisplay={this.props.updateDisplay}
-              key={drumObj.keyCode}
-              tabindex={drumObj}
+              key={audioObj.keyCode}
+              tabindex={audioObj}
             />
           );
         });

@@ -1,10 +1,16 @@
 body {
   background-image: linear-gradient(to bottom , #c32270, #fdd52d);
   padding-bottom: 25px;
+  text-align: center;
+}
+
+h2{
+  color: white
 }
 
 #drum-machine{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: snow;
